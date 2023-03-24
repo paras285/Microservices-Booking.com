@@ -1,0 +1,115 @@
+package com.nagarro.nagp.checkoutservice.services.impl;
+
+import java.util.List;
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.nagarro.nagp.checkoutservice.configurations.BookingStatus;
+import com.nagarro.nagp.checkoutservice.configurations.ServiceMapping;
+import com.nagarro.nagp.checkoutservice.dto.FlightBookingDetails;
+import com.nagarro.nagp.checkoutservice.dto.UserBookingEventDto;
+import com.nagarro.nagp.checkoutservice.services.FlightBookingService;
+import com.nagarro.nagp.checkoutservice.util.JsonSerializerUtil;
+
+@Service
+public class FlightBookingServiceImpl implements FlightBookingService {
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Autowired
+	private JmsTemplate jmsTemplate;
+
+	@Autowired
+	private BookingStatus bookingStatus;
+
+	@Autowired
+	private ServiceMapping serviceMapping;
+
+	@Override
+	public UserBookingEventDto confirmFlightBooking(FlightBookingDetails bookingDetails) {
+		UserBookingEventDto userNotificationDto = new UserBookingEventDto();
+		userNotificationDto.setOrderId(UUID.randomUUID().toString());
+		userNotificationDto.setBookingStatus(bookingStatus.getBookingPending());
+		userNotificationDto.setPrice(bookingDetails.getPrice());
+		userNotificationDto.setOrderDetails(getFlightDetails(bookingDetails.getFlightId()));
+
+		boolean isPaymentConfirmed = confirmPayment(bookingDetails);
+
+		boolean isFlightConfirmed = false;
+		if (isPaymentConfirmed) {
+			System.out.println("Payment Confirmed");
+			isFlightConfirmed = confirmBooking(bookingDetails);
+		} else {
+			System.out.println("Payment Failure");
+			userNotificationDto.setBookingStatus("FAILURE");
+			userNotificationDto.setFailureReason(bookingStatus.getPaymentFailure());
+			notifyUserAboutRejection(userNotificationDto);
+			return userNotificationDto;
+		}
+
+		if (isFlightConfirmed) {
+			System.out.println("Hotel Confirmed");
+			userNotificationDto.setBookingStatus(bookingStatus.getConfirmed());
+			notifyUserAboutConfirmedBooking(userNotificationDto);
+
+		} else {
+			System.out.println("Hotel ConfirmationFailure");
+			userNotificationDto.setBookingStatus("FAILURE");
+			userNotificationDto.setFailureReason(bookingStatus.getFlightUnavailability());
+			notifyUserAboutRejection(userNotificationDto);
+			startRefundProcess(bookingDetails);
+		}
+		return userNotificationDto;
+
+	}
+
+	private String getFlightDetails(List<String> flightId) {
+		System.out.println("Get Flight Details ()");
+		String commaSeperatedFlightIds = String.join(",", flightId);
+		String url = serviceMapping.getFlightDetails() + commaSeperatedFlightIds;
+		return restTemplate.getForObject(url, String.class);
+
+	}
+
+	private boolean confirmBooking(FlightBookingDetails bookingDetails) {
+		System.out.println("Flight Confirm Booking()");
+//		String commaSeperatedFlightIds = String.join(",", bookingDetails.getFlightId());
+//		System.out.println("FlighIds are: "+commaSeperatedFlightIds);
+		return restTemplate.postForObject(serviceMapping.getConfirmFlight(), bookingDetails.getFlightId(), Boolean.class);
+	}
+
+	private void startRefundProcess(UserBookingEventDto userNotificationDto) {
+		System.out.println("Payment Refund event initiated");
+		jmsTemplate.convertAndSend("startRefundEvent",JsonSerializerUtil.serialize(userNotificationDto));
+
+	}
+
+	private void notifyUserAboutConfirmedBooking(UserBookingEventDto userNotificationDto) {
+		System.out.println("Booking Success Event initiated");
+		jmsTemplate.convertAndSend("notifyUserAboutConfirmation",JsonSerializerUtil.serialize(userNotificationDto));
+
+	}
+
+	private void notifyUserAboutRejection(UserBookingEventDto userNotificationDto) {
+		System.out.println("Booking failure Event initiated");
+		jmsTemplate.convertAndSend("notifyUserAboutRejection",JsonSerializerUtil.serialize(userNotificationDto));
+	}
+
+	private boolean confirmPayment(FlightBookingDetails bookingDetails) {
+		String paymentResponse = restTemplate.postForObject(serviceMapping.getConfirmPayment(), bookingDetails,
+				String.class);
+
+		System.out.println("Payment Response is :" + paymentResponse);
+		if (("PAYMENT-SUCCESSFUL").equalsIgnoreCase(paymentResponse)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+}

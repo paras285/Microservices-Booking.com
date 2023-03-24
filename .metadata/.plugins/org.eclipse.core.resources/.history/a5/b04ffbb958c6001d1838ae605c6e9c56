@@ -1,0 +1,77 @@
+package com.nagarro.nagp.flightmanagement.dto;
+
+import java.io.Serializable;
+import java.util.Date;
+
+public class FlightDetails implements Serializable {
+
+	private static final long serialVersionUID = 4916383462707792078L;
+
+	private String flightId;
+	private String flightName;
+	private String departureLocation;
+	private String arrivalLocation;
+	private String flightType;
+	private Date travelDate;
+	private long price;
+
+	public String getFlightName() {
+		return flightName;
+	}
+
+	public void setFlightName(String flightName) {
+		this.flightName = flightName;
+	}
+
+	public String getDepartureLocation() {
+		return departureLocation;
+	}
+
+	public void setDepartureLocation(String departureLocation) {
+		this.departureLocation = departureLocation;
+	}
+
+	public String getArrivalLocation() {
+		return arrivalLocation;
+	}
+
+	public void setArrivalLocation(String arrivalLocation) {
+		this.arrivalLocation = arrivalLocation;
+	}
+
+	public String getFlightType() {
+		return flightType;
+	}
+
+	public void setFlightType(String flightType) {
+		this.flightType = flightType;
+	}
+
+	public Date getTravelDate() {
+		return travelDate;
+	}
+
+	public void setTravelDate(Date travelDate) {
+		this.travelDate = travelDate;
+	}
+
+	public long getPrice() {
+		return price;
+	}
+
+	public void setPrice(long price) {
+		this.price = price;
+	}
+
+	public FlightDetails(String flightName, String departureLocation, String arrivalLocation, String flightType,
+			Date travelDate, long price) {
+		super();
+		this.flightName = flightName;
+		this.departureLocation = departureLocation;
+		this.arrivalLocation = arrivalLocation;
+		this.flightType = flightType;
+		this.travelDate = travelDate;
+		this.price = price;
+	}
+
+}

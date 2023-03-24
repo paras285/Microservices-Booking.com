@@ -1,0 +1,20 @@
+package com.nagarro.nagp.flightmanagement.services.impl;
+
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
+import com.nagarro.nagp.flightmanagement.services.FlightConfirmationService;
+
+@Service
+public class FlightConfirmationServiceImpl implements FlightConfirmationService {
+
+	@Override
+	public boolean confirmFlightBooking(List<String> flightIds) {
+		if(flightIds == null || flightIds.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+
+}

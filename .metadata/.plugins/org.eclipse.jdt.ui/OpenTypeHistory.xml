@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+    <typeInfo handle="=flightService/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.nagarro.nagp.flightmanagement.services{FlightConfirmationService.java[FlightConfirmationService" modifiers="513" timestamp="1679290041885"/>
+    <typeInfo handle="=flightService/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.nagarro.nagp.flightmanagement.dao{FlightConfirmationDao.java[FlightConfirmationDao" modifiers="513" timestamp="1679291165758"/>
+    <typeInfo handle="=usermangamentservice/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.nagarro.nagp.usermangamentservice.services{UserDetailsService.java[UserDetailsService" modifiers="513" timestamp="1679571893159"/>
+    <typeInfo handle="=usermangamentservice/src\/main\/java=/optional=/true=/=/maven.pomderived=/true=/&lt;com.nagarro.nagp.usermangamentservice.dao{UserDetailsDao.java[UserDetailsDao" modifiers="513" timestamp="1679572092162"/>
+</typeInfoHistroy>

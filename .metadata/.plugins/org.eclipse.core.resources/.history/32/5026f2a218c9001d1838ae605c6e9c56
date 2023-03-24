@@ -1,0 +1,29 @@
+package com.nagarro.nagp.usermangamentservice.utils;
+
+import java.util.Date;
+
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
+
+import io.jsonwebtoken.Jwts;
+import io.jsonwebtoken.SignatureAlgorithm;
+
+@Service
+public class JwtTokenUtil {
+	
+	@Value("${authentication.secret-code}")
+	private String secretKey;
+
+	public String generateToken(String userId) {
+        long now = System.currentTimeMillis();
+        long validityInMilliseconds = 3600000; // 1 hour
+
+        return Jwts.builder()
+            .setSubject(username)
+            .setS
+            .setIssuedAt(new Date(now))
+            .setExpiration(new Date(now + validityInMilliseconds))
+            .signWith(SignatureAlgorithm.HS256, secretKey)
+            .compact();
+    }
+}

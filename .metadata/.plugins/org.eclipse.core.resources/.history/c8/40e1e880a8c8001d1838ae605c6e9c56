@@ -1,0 +1,7 @@
+package com.nagarro.nagp.usermangamentservice.dto;
+
+public class UserBalanceDto {
+
+	
+	private String userId;
+}

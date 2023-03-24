@@ -1,0 +1,27 @@
+package com.nagarro.nagp.usermangamentservice.services.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nagarro.nagp.usermangamentservice.dao.UserDetailsDao;
+import com.nagarro.nagp.usermangamentservice.dto.UserBalanceDto;
+import com.nagarro.nagp.usermangamentservice.services.UserDetailsService;
+
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+	@Autowired
+	private UserDetailsDao userDetailsDao;
+
+	@Override
+	public String getUserBalance(String userId) {
+		return userDetailsDao.getUserBalance(userId);
+	}
+
+	@Override
+	public String deductUserBalance(UserBalanceDto userBalance) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

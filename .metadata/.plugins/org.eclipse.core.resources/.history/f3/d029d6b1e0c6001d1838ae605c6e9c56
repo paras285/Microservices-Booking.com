@@ -1,0 +1,17 @@
+package com.nagarro.nagp.flightmanagement.services.impl;
+
+import java.util.List;
+
+import com.nagarro.nagp.flightmanagement.services.FlightConfirmationService;
+
+public class FlightConfirmationServiceImpl implements FlightConfirmationService {
+
+	@Override
+	public boolean confirmFlightBooking(List<String> flightIds) {
+		if(flightIds == null || flightIds.isEmpty()) {
+			return false;
+		}
+		return true;
+	}
+
+}

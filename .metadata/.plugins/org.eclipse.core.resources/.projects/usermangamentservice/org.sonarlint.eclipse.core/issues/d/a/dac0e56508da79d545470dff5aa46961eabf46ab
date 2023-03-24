@@ -1,0 +1,21 @@
+
+p	java:S106."9Replace this use of System.out or System.err by a logger.(”­ç¥ûÿÿÿÿ8€÷Þáð0Hé=RMAJORZ
+CODE_SMELL
+h
+java:S1874-"5Remove this use of "setSigningKey"; it is deprecated.(é­Ø¶8› ±àð0Hï=RMINORZ
+CODE_SMELL
+p	java:S106"9Replace this use of System.out or System.err by a logger.(ÐÑïøúÿÿÿÿ8âùêð0Hê=RMAJORZ
+CODE_SMELL
+p	java:S1061"9Replace this use of System.out or System.err by a logger.(ßÛÙ°úÿÿÿÿ8‰šéëð0H‡>RMAJORZ
+CODE_SMELL
+^
+java:S1481-"+Remove this unused "claims" local variable.(é­Ø¶8„Ò×áð0Hí=RMINORZ
+CODE_SMELL
+s	java:S125"<This block of commented-out lines of code should be removed.(à½÷£øÿÿÿÿ8ž£èëð0Hý=RMAJORZ
+CODE_SMELL
+m
+java:S1854-":Remove this useless assignment to local variable "claims".(é­Ø¶8û°éêð0Hë=RMAJORZ
+CODE_SMELL
+a
+java:S1874-".Remove this use of "parser"; it is deprecated.(é­Ø¶8› ±àð0Hì=RMINORZ
+CODE_SMELL

@@ -1,0 +1,42 @@
+package com.nagarro.nagp.checkoutservice.services.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.nagarro.nagp.checkoutservice.dao.ShortlistHotelDao;
+import com.nagarro.nagp.checkoutservice.dto.HotelShortlistDetials;
+import com.nagarro.nagp.checkoutservice.services.ShortlistHotelService;
+
+@Service
+public class ShortlistHotelServiceImpl implements ShortlistHotelService {
+
+	@Autowired
+	private ShortlistHotelDao shortlistHotelDao;
+	
+	@Autowired
+	private RestTemplate restTemplate;
+	
+	@Override
+	public String shortlistHotels(HotelShortlistDetials hotelShortlistDetials) {
+		try {
+			shortlistHotelDao.shortlistHotels(hotelShortlistDetials);
+			return "SUCCESS";
+		} catch (Exception exception) {
+			return "FAILURE";
+		}
+	}
+
+	@Override
+	public String getShortlistHotels(String userId) { List<String> shortlistedHotels = shortlistHotelDao.getShortlistHotels(userId);
+		if(shortlistedHotels == null || shortlistedHotels.isEmpty()) {
+			return "No Shortlisted Hotel Found";
+		}
+		String commaSeperatedShortlistedHotels = String.join(",", shortlistedHotels);
+		String url = "http://hotel-service/hotels/hotel-details?hotelId="+commaSeperatedShortlistedHotels;
+		return restTemplate.getForObject(url, String.class);
+	}
+
+}

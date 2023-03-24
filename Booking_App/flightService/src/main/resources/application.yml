@@ -1,0 +1,20 @@
+spring:
+ application:
+  name: flight-service
+
+server:
+ port: 8700 
+ servlet:
+  context-path: /flights
+
+eureka:
+ client:
+  service-url:
+   defaultZone: http://discovery-server:8081/eureka
+  register-with-eureka: true
+  fetch-registry: true
+
+opentracing: 
+ jaeger:
+  http-sender:
+   url: http://jaeger-allinone:14268/api/traces

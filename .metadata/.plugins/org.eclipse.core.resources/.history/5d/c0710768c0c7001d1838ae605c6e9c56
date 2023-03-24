@@ -1,0 +1,20 @@
+spring:
+ application:
+  name: hotel-service
+
+server:
+ port: 8800
+ servlet:
+  context-path: /hotels
+
+eureka:
+ client:
+  service-url:
+   defaultZone: http://discovery-server:8081/eureka
+  register-with-eureka: true
+  fetch-registry: true
+  
+opentracing:
+ jaeger:
+  http-sender:
+   url: http://127.0.0.1:14268/api/traces

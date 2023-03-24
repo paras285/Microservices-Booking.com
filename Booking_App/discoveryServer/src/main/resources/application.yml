@@ -1,0 +1,19 @@
+spring:
+ application:
+  name: discovery-server
+server:
+ port: 8081
+eureka:
+ client:
+  register-with-eureka: false
+  fetch-registry: true
+  
+logging:
+ level:
+  com:
+   netflix: OFF
+   
+opentracing:
+ jaeger:
+  http-sender:
+   url: http://jaeger-allinone:14268/api/traces

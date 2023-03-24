@@ -1,0 +1,5 @@
+1678816136613	Infer generic type arguments
+1678816151816	Infer generic type arguments
+1678882572030	Rename method 'confirmHotel'
+1679166234888	Rename method 'notifyUserABoutConfirmedBooking'
+1679167007585	Rename type 'UserNotificationDto'

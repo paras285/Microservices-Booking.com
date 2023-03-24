@@ -1,0 +1,11 @@
+package com.nagarro.nagp.usermangamentservice.services;
+
+import com.nagarro.nagp.usermangamentservice.dto.UserBalanceDto;
+
+public interface UserDetailsService {
+
+	String getUserBalance(String userId);
+
+	String deductUserBalance(UserBalanceDto userBalance);
+
+}

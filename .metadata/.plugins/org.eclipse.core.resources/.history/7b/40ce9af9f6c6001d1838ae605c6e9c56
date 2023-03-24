@@ -1,0 +1,13 @@
+package com.nagarro.nagp.notificationService;
+
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class NotificationEvent {
+
+	@JmsListener("notifyUserAboutConfirmation")
+	public void notifyUserAboutConfirmedBookingEvent(String payLoad) {
+		System.out.println("In NotificationService: Booking Confirmed");
+	}
+}

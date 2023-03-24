@@ -1,0 +1,8 @@
+package com.nagarro.nagp.checkoutservice.dto;
+
+public class UserNotificationDto {
+
+	private String orderId;
+	private String bookingStatus;
+	private String price;
+}

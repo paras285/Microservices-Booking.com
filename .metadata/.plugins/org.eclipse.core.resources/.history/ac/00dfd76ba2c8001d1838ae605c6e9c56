@@ -1,0 +1,9 @@
+package com.nagarro.nagp.paymentService.services;
+
+import com.nagarro.nagp.paymentService.dto.PaymentDetails;
+
+public interface PaymentService {
+
+	void confirmBookingPayment(PaymentDetails paymentDetails);
+
+}

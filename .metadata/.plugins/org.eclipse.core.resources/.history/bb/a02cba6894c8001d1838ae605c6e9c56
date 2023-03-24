@@ -1,0 +1,48 @@
+package com.nagarro.nagp.checkoutservice.configurations;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties(prefix = "status")
+public class BookingStatus {
+
+	private String bookingPending;
+	private String paymentFailure;
+	private String confirmed;
+	private String hotelUnavailability;
+	private String flightUnavailability
+
+	public String getBookingPending() {
+		return bookingPending;
+	}
+
+	public void setBookingPending(String bookingPending) {
+		this.bookingPending = bookingPending;
+	}
+
+	public String getPaymentFailure() {
+		return paymentFailure;
+	}
+
+	public void setPaymentFailure(String paymentFailure) {
+		this.paymentFailure = paymentFailure;
+	}
+
+	public String getConfirmed() {
+		return confirmed;
+	}
+
+	public void setConfirmed(String confirmed) {
+		this.confirmed = confirmed;
+	}
+
+	public String getHotelUnavailability() {
+		return hotelUnavailability;
+	}
+
+	public void setHotelUnavailability(String hotelUnavailability) {
+		this.hotelUnavailability = hotelUnavailability;
+	}
+
+}

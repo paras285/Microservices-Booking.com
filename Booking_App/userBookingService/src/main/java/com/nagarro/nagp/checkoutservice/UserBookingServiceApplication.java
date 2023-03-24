@@ -1,0 +1,27 @@
+package com.nagarro.nagp.checkoutservice;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.cloud.client.circuitbreaker.EnableCircuitBreaker;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
+import org.springframework.context.annotation.Bean;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.web.client.RestTemplate;
+
+@SpringBootApplication
+@EnableEurekaClient
+@EnableJms
+@EnableCircuitBreaker
+public class UserBookingServiceApplication {
+
+	public static void main(String[] args) {
+		SpringApplication.run(UserBookingServiceApplication.class, args);
+	}
+
+	@Bean
+	@LoadBalanced
+	public RestTemplate restTemplate() {
+		return new RestTemplate();
+	}
+}

@@ -1,0 +1,18 @@
+package com.nagarro.nagp.usermangamentservice.services.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nagarro.nagp.usermangamentservice.UserHelper;
+import com.nagarro.nagp.usermangamentservice.services.UserDetailsService;
+
+@Service
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+	
+	@Override
+	public void getUserBalance(String userId) {
+		user
+	}
+
+}

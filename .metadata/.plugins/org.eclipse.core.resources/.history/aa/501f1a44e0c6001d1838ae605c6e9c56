@@ -1,0 +1,7 @@
+package com.nagarro.nagp.flightmanagement.services.impl;
+
+import com.nagarro.nagp.flightmanagement.services.FlightConfirmationService;
+
+public class FlightConfirmationServiceImpl implements FlightConfirmationService {
+
+}

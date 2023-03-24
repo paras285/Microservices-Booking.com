@@ -1,0 +1,41 @@
+package com.nagarro.nagp.paymentService.services.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.nagarro.nagp.paymentService.dto.PaymentDetails;
+import com.nagarro.nagp.paymentService.dto.ServiceMapping;
+import com.nagarro.nagp.paymentService.services.PaymentService;
+
+@Service
+@Qualifier("netBanking")
+public class NetBankingPaymentServiceImpl implements PaymentService {
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Autowired
+	private ServiceMapping serviceMapping;
+
+	@Override
+	public void confirmBookingPayment(PaymentDetails paymentDetails) {
+		String url = serviceMapping.getUserBalance();
+		String userBalance = restTemplate.postForObject(url, paymentDetails.getUserId(), String.class);
+		if (Integer.valueOf(userBalance) < Integer.valueOf(paymentDetails.getPrice())) {
+//			Payment Failure
+		}
+
+		deductAmountFromUserAccount(paymentDetails);
+//		return restTemplate.getForObject(url, String.class);
+//		Check if A/C balance is > Price
+//		if balance > price --> Deduct Money
+//		Else Show Error
+	}
+
+	private void deductAmountFromUserAccount(PaymentDetails paymentDetails) {
+		String url = serviceMapping.deductAmountFromUser();
+	}
+
+}

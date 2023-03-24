@@ -1,0 +1,10 @@
+package com.nagarro.nagp.notificationService.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import com.nagarro.nagp.notificationService.service.RefundService;
+
+@Service
+public class RefundServiceImpl implements RefundService{
+
+}

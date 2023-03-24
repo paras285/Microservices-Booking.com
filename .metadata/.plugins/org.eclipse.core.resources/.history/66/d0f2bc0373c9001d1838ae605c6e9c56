@@ -1,0 +1,58 @@
+package com.nagarro.nagp.usermangamentservice.dao.impl;
+
+import java.util.Map;
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.nagarro.nagp.usermangamentservice.UserHelper;
+import com.nagarro.nagp.usermangamentservice.dao.UserDetailsDao;
+import com.nagarro.nagp.usermangamentservice.dto.UserBalanceDto;
+import com.nagarro.nagp.usermangamentservice.entities.User;
+
+@Repository
+public class UserDetailsDaoImpl implements UserDetailsDao {
+
+	@Autowired
+	private UserHelper userHelper;
+
+	@Override
+	public String getUserBalance(String userId) {
+		Optional<User> userOptional = userHelper.getUserList().stream().filter(user -> user.getId().equals(userId))
+				.findAny();
+		if (userOptional.isPresent()) {
+			User user = userOptional.get();
+			return user.getBalance();
+		} else {
+			return "USER NOT FOUND";
+		}
+	}
+
+	@Override
+	public boolean deductUserBalance(UserBalanceDto userBalance) {
+		Optional<User> userOptional = userHelper.getUserList().stream()
+				.filter(user -> String.valueOf(user.getId()).equals(userBalance.getUserId())).findAny();
+		if (userOptional.isPresent()) {
+			User user = userOptional.get();
+			int remainingBalance = Integer.valueOf(user.getBalance()) - Integer.valueOf(userBalance.getPrice());
+			user.setBalance(String.valueOf(remainingBalance));
+			return true;
+		}
+		return false;
+	}
+
+	@Override
+	public boolean refundUserBalance(Map<String, String> userBalance) {
+		Optional<User> userOptional = userHelper.getUserList().stream()
+				.filter(user -> String.valueOf(user.getId()).equals(userBalance.get("userId"))).findAny();
+		if (userOptional.isPresent()) {
+			User user = userOptional.get();
+			int remainingBalance = Integer.valueOf(user.getBalance()) + Integer.valueOf(userBalance.get("price"));
+			user.setBalance(String.valueOf(remainingBalance));
+			return true;
+		}
+		return false;
+	}
+
+}

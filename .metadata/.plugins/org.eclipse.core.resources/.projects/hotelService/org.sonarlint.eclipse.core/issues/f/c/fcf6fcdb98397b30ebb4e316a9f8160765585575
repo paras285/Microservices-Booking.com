@@ -1,0 +1,18 @@
+
+|
+java:S1192"FDefine a constant instead of duplicating this literal "DELHI" 5 times.(¤®Û8‚Š×Îî0H6RCRITICALZ
+CODE_SMELL
+‡
+java:S1192"LDefine a constant instead of duplicating this literal "yyyy-MM-dd" 10 times.(¨ÿÿÿÿÿ8‚Š×Îî0H‡6RCRITICALZ
+CODE_SMELL
+‘
+java:S2293"YReplace the type specification in this constructor call with the diamond operator ("<>").(ãÓÑşÿÿÿÿ8‚Š×Îî0H’6RMINORZ
+CODE_SMELL
+„	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(â»ÑH”6RMINORZ
+CODE_SMELL
+…
+java:S1192"JDefine a constant instead of duplicating this literal "2023-5-28" 5 times.(¨ÿÿÿÿÿ8‚Š×Îî0H•6RCRITICALZ
+CODE_SMELL
+€
+java:S1192"JDefine a constant instead of duplicating this literal "2023-5-29" 5 times.(œÙ»°8‚Š×Îî0H›6RCRITICALZ
+CODE_SMELL

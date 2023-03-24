@@ -1,0 +1,7 @@
+FROM openjdk:11
+WORKDIR /app
+ADD target/*.jar api-gateway.jar
+COPY . /app
+EXPOSE 8500
+ENV EUREKA_SERVICE_URL=http://eureka-server:8081/eureka
+CMD ["java","-jar","api-gateway.jar"]

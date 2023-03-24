@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<section name="Workbench">
+	<section name="MavenProjectImportWizardPage">
+		<list key="rootDirectory">
+			<item value="C:\Users\parasarora\Desktop\NagP\Booking_App"/>
+			<item value="C:\Users\parasarora\Desktop\NagP\Booking_App\usermangamentservice"/>
+			<item value="C:\Users\parasarora\Desktop\NagP\Booking_App\userManagementService\userManagementService"/>
+			<item value="C:\Users\parasarora\Desktop\NagP\Booking_App\userManagementService"/>
+			<item value="C:\Users\parasarora\Desktop\NagP\Booking_App\testingService\testingService"/>
+			<item value="C:\Users\parasarora\Desktop\NagP\Booking_App\apiGateway"/>
+			<item value="C:\Users\parasarora\Desktop\NagP\Booking_App\discoveryServer"/>
+			<item value="C:\Users\parasarora\Desktop\NagP\Booking_App\discoveryServer\discoveryServer"/>
+			<item value="C:\Users\parasarora\Documents\NagP\Code\microservices"/>
+			<item value="C:\Users\parasarora\Desktop\NagP\apiGateway"/>
+		</list>
+		<list key="projectNameTemplate">
+			<item value="[artifactId]"/>
+			<item value="[artifactId]-TRUNK"/>
+			<item value="[artifactId]-[version]"/>
+			<item value="[groupId].[artifactId]"/>
+			<item value="[groupId].[artifactId]-[version]"/>
+			<item value="[name]"/>
+		</list>
+	</section>
+	<section name="org.eclipse.m2e.core.pom.overview">
+	</section>
+	<section name="org.eclipse.m2e.core.pom.dependencies">
+	</section>
+</section>

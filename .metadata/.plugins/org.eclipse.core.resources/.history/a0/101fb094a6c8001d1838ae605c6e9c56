@@ -1,0 +1,18 @@
+package com.nagarro.nagp.usermangamentservice.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nagarro.nagp.usermangamentservice.services.UserDetailsService;
+
+@RestController
+public class UserDetailsController {
+
+	@Autowired
+	private UserDetailsService userDetailsService;
+	
+	public String getUserBalance(@RequestBody String userId) {
+		userDetailsService.getUserBalance(userId);
+	}
+}

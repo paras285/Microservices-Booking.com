@@ -1,0 +1,33 @@
+package com.nagarro.nagp.usermangamentservice;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Component;
+
+import com.nagarro.nagp.usermangamentservice.entities.User;
+import com.nagarro.nagp.usermangamentservice.entities.UserPassword;
+
+@Component
+public class UserHelper {
+
+	private List<User> userList = new ArrayList<User>();
+	private List<UserPassword> userPasswordList = new ArrayList<UserPassword>();
+
+	public List<User> getUserList() {
+		return userList;
+	}
+
+	public void setUserList(List<User> userList) {
+		this.userList = userList;
+	}
+
+	public List<UserPassword> getUserPasswordList() {
+		return userPasswordList;
+	}
+
+	public void setUserPasswordList(List<UserPassword> userPasswordList) {
+		this.userPasswordList = userPasswordList;
+	}
+
+}

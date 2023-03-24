@@ -1,0 +1,10 @@
+package com.nagarro.nagp.checkoutservice.dto;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties(prefix = "url")
+public class URLMapping {
+
+}

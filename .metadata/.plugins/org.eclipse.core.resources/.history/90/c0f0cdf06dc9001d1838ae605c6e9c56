@@ -1,0 +1,8 @@
+package com.nagarro.nagp.checkoutservice.dto;
+
+public class PaymentRefundDTO {
+	
+	private String userId;
+	private String price;
+
+}

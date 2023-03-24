@@ -1,0 +1,11 @@
+
+d	java:S106"9Replace this use of System.out or System.err by a logger.(§ΧΉHλ5RMAJORZ
+CODE_SMELL
+k
+java:S1118":Add a private constructor to hide the implicit public one.(£Ϊ€»ÿÿÿÿÿHκ5RMAJORZ
+CODE_SMELL
+Έ
+java:S1598"This file "JsonSerializerUtil.java" should be located in "com\nagarro\nagp\notificationService\util" directory, not in "C:\Users\parasarora\Desktop\NagP\Booking_App\notificationService\notificationService\src\main\java\com\nagarro\nagp\notificationService".(Ή8Π΅­πο0Hξ5RCRITICALZ
+CODE_SMELL
+	java:S120"ZRename this package name to match the regular expression '^[a-z_]+(\.[a-z_][a-z0-9_]*)*$'.(Ή8Π΅­πο0Hο5RMINORZ
+CODE_SMELL

@@ -1,0 +1,20 @@
+package com.nagarro.nagp.flightmanagement.dao.impl;
+
+import java.util.List;
+
+import org.springframework.stereotype.Repository;
+
+import com.nagarro.nagp.flightmanagement.dao.FlightConfirmationDao;
+import com.nagarro.nagp.flightmanagement.helper.FlightListDetails;
+
+@Repository
+public class FlightConfirmationDaoImpl implements FlightConfirmationDao {
+
+	@Autowired
+	private FlightListDetails flightDetails;
+	@Override
+	public boolean confirmFlightBooking(List<String> flightIds) {
+		
+	}
+
+}

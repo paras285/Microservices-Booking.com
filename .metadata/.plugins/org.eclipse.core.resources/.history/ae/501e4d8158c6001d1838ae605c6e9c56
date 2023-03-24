@@ -1,0 +1,9 @@
+package com.nagarro.nagp.checkoutservice.dto;
+
+import java.io.Serializable;
+
+public class FlightBookingDetails implements Serializable{
+
+	private String orderId;
+	private String orderDetails
+}

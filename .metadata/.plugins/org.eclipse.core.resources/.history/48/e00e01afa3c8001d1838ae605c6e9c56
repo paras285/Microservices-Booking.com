@@ -1,0 +1,13 @@
+package com.nagarro.nagp.usermangamentservice.services.impl;
+
+import com.nagarro.nagp.usermangamentservice.services.UserDetailsService;
+
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+	@Override
+	public void getUserBalance(String userId) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

@@ -1,0 +1,101 @@
+package com.nagarro.nagp.checkoutservice.services.impl;
+
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.nagarro.nagp.checkoutservice.dto.BookingStatus;
+import com.nagarro.nagp.checkoutservice.dto.HotelBookingDetails;
+import com.nagarro.nagp.checkoutservice.dto.URLMapping;
+import com.nagarro.nagp.checkoutservice.dto.UserBookingEventDto;
+import com.nagarro.nagp.checkoutservice.services.HotelBookingService;
+
+@Service
+public class HotelBookingServiceImpl implements HotelBookingService {
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Autowired
+	private JmsTemplate jmsTemplate;
+	
+	@Autowired
+	private BookingStatus bookingStatus;
+	
+	private URLMapping urlMappingConfigurations;
+	
+	@Override
+	public void confirmHotelBooking(HotelBookingDetails bookingDetails) {
+		UserBookingEventDto userNotificationDto = new UserBookingEventDto();
+		userNotificationDto.setOrderId(UUID.randomUUID().toString());
+		userNotificationDto.setBookingStatus(bookingStatus.getBookingPending());
+		userNotificationDto.setPrice(bookingDetails.getPrice());
+		userNotificationDto.setOrderDetails(getHotelDetails(bookingDetails.getHotelId()));
+
+		boolean isPaymentConfirmed = confirmPayment(bookingDetails);
+		boolean isHotelConfirmed = false;
+		if (isPaymentConfirmed) {
+			isHotelConfirmed = confirmBooking(bookingDetails);
+		} else {
+			userNotificationDto.setBookingStatus(bookingStatus.getPaymentFailure());
+			notifyUserAboutRejection(userNotificationDto);
+			return;
+		}
+
+		if (isHotelConfirmed) {
+			userNotificationDto.setBookingStatus(bookingStatus.getConfirmed());
+			notifyUserAboutConfirmedBooking(userNotificationDto);
+
+		} else {
+			userNotificationDto.setBookingStatus(bookingStatus.getHotelUnavailability());
+			notifyUserAboutRejection(userNotificationDto);
+			startRefundProcess(userNotificationDto);
+		}
+	}
+
+	private String getHotelDetails(String hotelId) {
+		String url = "http://hotel-service/hotels/hotel-details?hotelId=" + hotelId;
+		return restTemplate.getForObject(url, String.class);
+	}
+
+	@JmsListener(destination = "paymentRefundEvent")
+	private void startRefundProcess(UserBookingEventDto userNotificationDto) {
+		System.out.println("Payment Refund event initiated");
+		jmsTemplate.convertAndSend(userNotificationDto);
+	}
+
+	@JmsListener(destination = "BookingFailureEvent")
+	private void notifyUserAboutRejection(UserBookingEventDto userNotificationDto) {
+		System.out.println("Booking failure Event initiated");
+		jmsTemplate.convertAndSend(userNotificationDto);
+	}
+
+	@JmsListener(destination = "BookingSuccessEvent")
+	private void notifyUserAboutConfirmedBooking(UserBookingEventDto userNotificationDto) {
+		System.out.println("Booking Success Event initiated");
+		jmsTemplate.convertAndSend(userNotificationDto);
+	}
+
+	private boolean confirmPayment(HotelBookingDetails bookingDetails) {
+		String paymentResponse = restTemplate.postForObject(urlMappingConfigurations.getConfirmPayment(), bookingDetails,
+				String.class);
+
+		System.out.println("Payment Response is :" + paymentResponse);
+		if (("PAYMENT-SUCCESSFUL").equalsIgnoreCase(paymentResponse)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+
+	private boolean confirmBooking(HotelBookingDetails bookingDetails) {
+		boolean inventoryConfirmationResponse = restTemplate.postForObject("http://hotel-service/hotels/confirm",
+				bookingDetails.getHotelId(), Boolean.class);
+		System.out.println("Inventory Response is: " + inventoryConfirmationResponse);
+		return inventoryConfirmationResponse;
+	}
+}

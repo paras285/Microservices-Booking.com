@@ -1,0 +1,25 @@
+package com.nagarro.nagp.checkoutservice.controllers;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.nagarro.nagp.checkoutservice.dto.HotelBookingDetails;
+import com.nagarro.nagp.checkoutservice.dto.UserBookingEventDto;
+import com.nagarro.nagp.checkoutservice.services.HotelBookingService;
+
+@RestController
+public class ConfirmHotelBookingController {
+
+	@Autowired
+	private HotelBookingService hotelBookingService;
+
+	@PostMapping("confirm-hotel")
+	@ResponseStatus(code = HttpStatus.201)
+	public UserBookingEventDto confirmHotelBooking(@RequestBody HotelBookingDetails bookingDetails) {
+		return hotelBookingService.confirmHotelBooking(bookingDetails);
+	}
+}

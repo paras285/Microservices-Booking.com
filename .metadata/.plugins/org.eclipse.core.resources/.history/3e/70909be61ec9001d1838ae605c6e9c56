@@ -1,0 +1,12 @@
+package com.nagarro.nagp.usermangamentservice.services;
+
+import com.nagarro.nagp.usermangamentservice.dto.UserAuthenticatorDto;
+import com.nagarro.nagp.usermangamentservice.entities.User;
+
+public interface UserAuthenticatorService {
+
+	String validateUser(UserAuthenticatorDto userAuthenticatorDto);
+
+	void validateToken(String token);
+
+}

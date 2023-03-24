@@ -1,0 +1,35 @@
+spring:
+ application:
+  name: booking-service
+ activemq:
+  user: admin
+  password: admin
+  broker-url: tcp://localhost:61616?jms.redeliveryPolicy.maximumRedeliveries=1
+
+server:
+ port: 9100
+
+eureka:
+ client:
+  service-url:
+   defaultZone: http://localhost:8081/eureka
+  register-with-eureka: true
+  fetch-registry: true
+  
+opentracing:
+ jaeger:
+  http-sender:
+   url: http://127.0.0.1:14268/api/traces
+   
+status:
+ booking-pending: PENDING
+ payment-failure: PAYMENT FAILURE
+ confirmed: CONFIRMED
+ hotel-unavailability: HOTEL UNAVAILABILITY
+
+url:
+ hotel-details: http://hotel-service/hotels/hotel-details?hotelId=
+ confirm-payment: http://payment-services/payment/confirm
+ confirm-hotel: http://hotel-service/hotels/confirm
+ 
+   

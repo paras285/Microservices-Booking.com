@@ -1,0 +1,24 @@
+package com.nagarro.nagp.notificationService;
+
+import org.springframework.jms.annotation.JmsListener;
+import org.springframework.stereotype.Component;
+
+@Component
+public class NotificationEvent {
+
+	@JmsListener(destination = "notifyUserAboutConfirmation")
+	public void notifyUserAboutConfirmedBookingEvent(String payLoad) {
+		System.out.println("In NotificationService: Booking Confirmed");
+	}
+
+	@JmsListener(destination = "notifyUserAboutRejection")
+	public void notifyUserAboutRejectionEventt(String payLoad) {
+		System.out.println("In NotificationService: Booking Cancelled");
+	}
+
+	@JmsListener(destination = "startRefundEvent")
+	public void startRefundProcessEvent(String payLoad) {
+		System.out.println("PayLoad in refund even is "+payLoad);
+		System.out.println("In NotificationService: Refund Event Initiated");
+	}
+}

@@ -1,0 +1,5 @@
+package com.nagarro.nagp.checkoutservice.controllers;
+
+public class ConfirmFlightBooking {
+
+}

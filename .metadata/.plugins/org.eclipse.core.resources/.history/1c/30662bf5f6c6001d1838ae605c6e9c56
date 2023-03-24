@@ -1,0 +1,12 @@
+package com.nagarro.nagp.notificationService;
+
+import org.springframework.stereotype.Component;
+
+@Component
+public class NotificationEvent {
+
+	
+	public void notifyUserAboutConfirmedBookingEvent(String payLoad) {
+		
+	}
+}

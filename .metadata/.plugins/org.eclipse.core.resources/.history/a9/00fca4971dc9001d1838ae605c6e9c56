@@ -1,0 +1,6 @@
+package com.example.demo.util;
+
+public interface AuthenticationService {
+
+	public boolean validateToken(String token);
+}

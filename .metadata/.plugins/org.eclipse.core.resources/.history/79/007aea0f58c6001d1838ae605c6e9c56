@@ -1,0 +1,5 @@
+package com.nagarro.nagp.checkoutservice.services;
+
+public interface FlightBookingService {
+
+}

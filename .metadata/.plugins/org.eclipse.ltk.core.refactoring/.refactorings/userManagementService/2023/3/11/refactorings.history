@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;userManagementService/src/main/java/com/nagarro/nagp/userManagementService&apos; to &apos;usermanagementservice&apos;" description="Rename resource &apos;userManagementService&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="src/main/java/com/nagarro/nagp/userManagementService" name="usermanagementservice" stamp="1678638407628" updateReferences="true"/>
+</session>

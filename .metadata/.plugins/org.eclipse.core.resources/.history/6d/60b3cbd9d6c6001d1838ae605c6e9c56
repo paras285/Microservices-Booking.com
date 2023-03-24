@@ -1,0 +1,32 @@
+package com.nagarro.nagp.flightmanagement.services.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nagarro.nagp.flightmanagement.dao.FlightSearchDao;
+import com.nagarro.nagp.flightmanagement.dto.FlightDetails;
+import com.nagarro.nagp.flightmanagement.dto.TravelDetails;
+import com.nagarro.nagp.flightmanagement.services.FlightSearchService;
+
+@Service
+public class FlightSearchServiceImpl implements FlightSearchService {
+
+	@Autowired
+	private FlightSearchDao flightSearchDao;
+
+	@Override
+	public List<FlightDetails> getFlightDetails(TravelDetails travelDetails) {
+		return flightSearchDao.getFlightDetails(travelDetails);
+
+	}
+
+	@Override
+	public List<FlightDetails> getFlightDetails(List<String> flightIds) {
+		if(flightIds == null || flightIds.isEmpty()) {
+			return new ArrayList<>();
+		}
+	}
+
+}

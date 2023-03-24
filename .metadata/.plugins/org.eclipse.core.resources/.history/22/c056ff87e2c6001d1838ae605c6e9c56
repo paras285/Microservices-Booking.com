@@ -1,0 +1,7 @@
+package com.nagarro.nagp.flightmanagement.dao.impl;
+
+import com.nagarro.nagp.flightmanagement.dao.FlightConfirmationDao;
+
+public class FlightConfirmationDaoImpl implements FlightConfirmationDao {
+
+}

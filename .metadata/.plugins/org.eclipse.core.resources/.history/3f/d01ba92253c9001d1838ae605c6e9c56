@@ -1,0 +1,29 @@
+package com.example.demo.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.example.demo.service.AuthenticationService;
+
+@Service
+public class AuthenticationServiceImpl implements AuthenticationService{
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	public boolean validateToken(String token) {
+		String url  = "http://user-service/user/validate-token?token="+token;
+		boolean isTokenValid = restTemplate.getForObject(url, boolean.class);
+		System.out.println("Token Status is: "+isTokenValid);
+		return isTokenValid;
+	}
+
+	@Override
+	public void testMethod() {
+		String url  = "http://user-service/user/testing";
+		boolean isTokenValid = restTemplate.getForObject(url, boolean.class);
+		System.out.println("Testing Method()"+isTokenValid);
+	}
+
+}

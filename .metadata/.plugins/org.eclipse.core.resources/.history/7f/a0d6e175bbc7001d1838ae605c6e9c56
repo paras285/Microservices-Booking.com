@@ -1,0 +1,10 @@
+package com.nagarro.nagp.checkoutservice.dto;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+
+@ConfigurationProperties(prefix = "fallback-message")
+public class FallbackMessages {
+	
+	private String getShortlistHotel();
+
+}

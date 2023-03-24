@@ -1,0 +1,4 @@
+1679231624267	Rename type 'ConfirmFlightBooking'
+1679233879360	Rename type 'URLMapping'
+1679233900217	Rename field 'urlMappingConfigurations'
+1679473921016	Rename local variable 'isHotelConfirmed'

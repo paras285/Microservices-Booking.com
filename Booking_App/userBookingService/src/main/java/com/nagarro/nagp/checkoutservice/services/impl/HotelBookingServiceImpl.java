@@ -1,0 +1,102 @@
+package com.nagarro.nagp.checkoutservice.services.impl;
+
+import java.util.UUID;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+import com.nagarro.nagp.checkoutservice.configurations.BookingStatus;
+import com.nagarro.nagp.checkoutservice.configurations.ServiceMapping;
+import com.nagarro.nagp.checkoutservice.dto.HotelBookingDetails;
+import com.nagarro.nagp.checkoutservice.dto.PaymentRefundDTO;
+import com.nagarro.nagp.checkoutservice.dto.UserBookingEventDto;
+import com.nagarro.nagp.checkoutservice.services.HotelBookingService;
+import com.nagarro.nagp.checkoutservice.util.JsonSerializerUtil;
+
+@Service
+public class HotelBookingServiceImpl implements HotelBookingService {
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	@Autowired
+	private JmsTemplate jmsTemplate;
+
+	@Autowired
+	private BookingStatus bookingStatus;
+
+	@Autowired
+	private ServiceMapping serviceMapping;
+
+	@Override
+	public UserBookingEventDto confirmHotelBooking(HotelBookingDetails bookingDetails) {
+		UserBookingEventDto userNotificationDto = new UserBookingEventDto();
+		userNotificationDto.setOrderId(UUID.randomUUID().toString());
+		userNotificationDto.setBookingStatus(bookingStatus.getBookingPending());
+		userNotificationDto.setPrice(bookingDetails.getPrice());
+		userNotificationDto.setOrderDetails(getHotelDetails(bookingDetails.getHotelId()));
+
+		boolean isPaymentConfirmed = confirmPayment(bookingDetails);
+		boolean isHotelConfirmed = false;
+		if (isPaymentConfirmed) {
+			isHotelConfirmed = confirmBooking(bookingDetails);
+		} else {
+			userNotificationDto.setBookingStatus("FAILURE");
+			userNotificationDto.setFailureReason(bookingStatus.getPaymentFailure());
+			notifyUserAboutRejection(userNotificationDto);
+			return userNotificationDto;
+		}
+
+		if (isHotelConfirmed) {
+			userNotificationDto.setBookingStatus(bookingStatus.getConfirmed());
+			notifyUserAboutConfirmedBooking(userNotificationDto);
+
+		} else {
+			userNotificationDto.setBookingStatus("FAILURE");
+			userNotificationDto.setFailureReason(bookingStatus.getHotelUnavailability());
+			notifyUserAboutRejection(userNotificationDto);
+			startRefundProcess(bookingDetails);
+		}
+		return userNotificationDto;
+	}
+
+	private String getHotelDetails(String hotelId) {
+		String url = serviceMapping.getHotelDetails() + hotelId;
+		return restTemplate.getForObject(url, String.class);
+	}
+
+	private void startRefundProcess(HotelBookingDetails bookingDetails) {
+		System.out.println("Payment Refund event initiated");
+		PaymentRefundDTO paymentDto = new PaymentRefundDTO();
+		paymentDto.setPrice(bookingDetails.getPrice());
+		paymentDto.setUserId(bookingDetails.getUserId());
+		jmsTemplate.convertAndSend("startRefundEvent", JsonSerializerUtil.serialize(paymentDto));
+	}
+
+	private void notifyUserAboutRejection(UserBookingEventDto bookingDetails) {
+		System.out.println("Booking failure Event initiated");
+		jmsTemplate.convertAndSend("notifyUserAboutRejection", JsonSerializerUtil.serialize(bookingDetails));
+	}
+
+	private void notifyUserAboutConfirmedBooking(UserBookingEventDto userNotificationDto) {
+		System.out.println("Booking Success Event initiated");
+		jmsTemplate.convertAndSend("notifyUserAboutConfirmation", JsonSerializerUtil.serialize(userNotificationDto));
+	}
+
+	private boolean confirmPayment(HotelBookingDetails bookingDetails) {
+		boolean isPaymentConfirmed = restTemplate.postForObject(serviceMapping.getConfirmPayment(), bookingDetails,
+				boolean.class);
+
+		System.out.println("Payment Response is :" + isPaymentConfirmed);
+		return isPaymentConfirmed;
+	}
+
+	private boolean confirmBooking(HotelBookingDetails bookingDetails) {
+		boolean inventoryConfirmationResponse = restTemplate.postForObject(serviceMapping.getConfirmHotel(),
+				bookingDetails.getHotelId(), Boolean.class);
+		System.out.println("Inventory Response is: " + inventoryConfirmationResponse);
+		return inventoryConfirmationResponse;
+	}
+}

@@ -1,0 +1,10 @@
+
+p	java:S106"9Replace this use of System.out or System.err by a logger.(Ø„şÃøÿÿÿÿ8ôÕÍÃğ0H±7RMAJORZ
+CODE_SMELL
+}
+java:S1612"JReplace this lambda with method reference 'FlightDetails::isFlightStatus'.(Œß˜¯8åø×ìï0HÂ5RMINORZ
+CODE_SMELL
+p	java:S106"9Replace this use of System.out or System.err by a logger.(•‡Ìÿÿÿÿÿ8ßÏßÃğ0Hµ7RMAJORZ
+CODE_SMELL
+p	java:S106"9Replace this use of System.out or System.err by a logger.(µ‚Çúÿÿÿÿ8Œ£ĞÃğ0H³7RMAJORZ
+CODE_SMELL

@@ -1,0 +1,14 @@
+package com.nagarro.nagp.checkoutservice.controllers;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+@RestController
+public class ConfirmFlightBooking {
+	
+	@PostMapping("confirm-flight")
+	public void confirmFlightBooking() {
+		
+	}
+
+}

@@ -1,0 +1,24 @@
+package com.nagarro.nagp.flightmanagement.services.impl;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.nagarro.nagp.flightmanagement.dao.FlightConfirmationDao;
+import com.nagarro.nagp.flightmanagement.services.FlightConfirmationService;
+
+@Service
+public class FlightConfirmationServiceImpl implements FlightConfirmationService {
+
+	@Autowired
+	private FlightConfirmationDao flightConfirmationDao;
+	@Override
+	public boolean confirmFlightBooking(List<String> flightIds) {
+		if(flightIds == null || flightIds.isEmpty()) {
+			return false;
+		}
+		return flightConfirmationDao.confirmFlightBooking(flightIds);
+	}
+
+}

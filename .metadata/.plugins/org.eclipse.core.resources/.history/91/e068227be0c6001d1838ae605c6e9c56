@@ -1,0 +1,5 @@
+package com.nagarro.nagp.flightmanagement.helper;
+
+public class FlightListDetails {
+
+}

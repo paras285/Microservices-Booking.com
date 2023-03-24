@@ -1,0 +1,20 @@
+spring:
+ application:
+  name: payment-service
+
+server:
+ port: 8900
+ servlet:
+  context-path: /payment
+
+eureka:
+ client:
+  service-url:
+   defaultZone: http://localhost:8081/eureka
+  register-with-eureka: true
+  fetch-registry: true
+  
+opentracing:
+ jaeger:
+  http-sender:
+   url: http://127.0.0.1:14268/api/traces

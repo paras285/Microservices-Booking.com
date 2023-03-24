@@ -1,0 +1,5 @@
+package com.nagarro.nagp.checkoutservice.dto;
+
+public class UserNotificationDto {
+
+}

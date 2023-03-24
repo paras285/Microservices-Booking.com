@@ -1,0 +1,14 @@
+package com.nagarro.nagp.checkoutservice.dto;
+
+import org.springframework.boot.context.properties.ConfigurationProperties;
+import org.springframework.stereotype.Component;
+
+@Component
+@ConfigurationProperties(prefix = "status")
+public class BookingStatus {
+	
+	private String bookingPending;
+	private String paymentFailure;
+	private String confirmed;
+	private String hotelUnavailability;
+}

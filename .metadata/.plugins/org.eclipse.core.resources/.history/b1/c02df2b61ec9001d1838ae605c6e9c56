@@ -1,0 +1,20 @@
+package com.example.demo.service.impl;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
+
+@Service
+public class AuthenticationServiceImpl {
+
+	@Autowired
+	private RestTemplate restTemplate;
+
+	public boolean validateToken(String token) {
+		String url  = "http://user-service/user/hotel-details?hotelId=";
+		boolean isTokenValid = restTemplate.getForObject(url, boolean.class);
+		System.out.println("Token Status is: "+isTokenValid);
+		return isTokenValid;
+	}
+
+}

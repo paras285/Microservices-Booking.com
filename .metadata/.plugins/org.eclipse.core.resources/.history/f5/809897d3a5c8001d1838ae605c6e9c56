@@ -1,0 +1,7 @@
+package com.nagarro.nagp.usermangamentservice.dao.impl;
+
+import com.nagarro.nagp.usermangamentservice.dao.UserDetailsDao;
+
+public class UserDetailsDaoImpl implements UserDetailsDao {
+
+}

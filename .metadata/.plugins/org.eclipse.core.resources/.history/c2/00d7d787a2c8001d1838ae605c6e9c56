@@ -1,0 +1,25 @@
+package com.nagarro.nagp.paymentService.services.impl;
+
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Service;
+
+import com.nagarro.nagp.paymentService.dto.PaymentDetails;
+import com.nagarro.nagp.paymentService.services.PaymentService;
+
+@Service
+@Qualifier("upi")
+public class UpiPaymentServiceImpl implements PaymentService{
+
+	@Override
+	public void confirmBookingPayment(PaymentDetails paymentDetails) {
+		String url = serviceMapping.getUserBalance();
+		String userBalance = restTemplate.postForObject(url, paymentDetails.getUserId(), String.class);
+		if (Integer.valueOf(userBalance) < Integer.valueOf(paymentDetails.getPrice())) {
+//			Payment Failure
+		}
+
+		return deductAmountFromUserAccount(paymentDetails);
+
+	}
+
+}

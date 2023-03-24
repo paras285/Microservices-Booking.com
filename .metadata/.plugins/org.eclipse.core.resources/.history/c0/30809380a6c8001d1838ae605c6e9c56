@@ -1,0 +1,7 @@
+package com.nagarro.nagp.usermangamentservice.dao;
+
+public interface UserDetailsDao {
+
+	void getUserBalance(String userId);
+
+}

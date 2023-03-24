@@ -1,0 +1,5 @@
+package com.nagarro.nagp.notificationService.service;
+
+public interface RefundService {
+
+}

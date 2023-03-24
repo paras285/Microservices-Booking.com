@@ -1,0 +1,7 @@
+package com.nagarro.nagp.usermangamentservice.services.impl;
+
+import com.nagarro.nagp.usermangamentservice.services.UserDetailsService;
+
+public class UserDetailsServiceImpl implements UserDetailsService {
+
+}

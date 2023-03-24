@@ -1,0 +1,36 @@
+package com.nagarro.nagp.usermangamentservice.dao.impl;
+
+import java.util.Optional;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
+import com.nagarro.nagp.usermangamentservice.UserHelper;
+import com.nagarro.nagp.usermangamentservice.dao.UserDetailsDao;
+import com.nagarro.nagp.usermangamentservice.dto.UserBalanceDto;
+import com.nagarro.nagp.usermangamentservice.entities.User;
+
+@Repository
+public class UserDetailsDaoImpl implements UserDetailsDao {
+
+	@Autowired
+	private UserHelper userHelper;
+
+	@Override
+	public String getUserBalance(String userId) {
+		Optional<User> userOptional = userHelper.getUserList().stream()
+				.filter(user -> String.valueOf(user.getId()).equals(userId)).findAny();
+		if(userOptional.isPresent()) {
+			User user = userOptional.get();
+			return user.getBalance();
+		}else {
+			return "USER NOT FOUND";
+		}
+	}
+
+	@Override
+	public void deductUserBalance(UserBalanceDto userBalance) {
+		userHelper.getUserList().stream().filter(user -> String.valueOf(user.getId()).equals(userId)).findAny();
+	}
+
+}
